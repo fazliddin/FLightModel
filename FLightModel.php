@@ -11,17 +11,17 @@
 /**
  * Active record gives very convenient way of DB communication. However, active record is not as fast as query builder. Due to some benchmarks query builder 3x faster than active record.
  * 
- * FLightModel extends CDbCommand class and adds active record style methods. Those methods are highly inspired by Yii2's active record. Note that FLightModel is mainly intended for data retrieving, it does not have save method.
+ * `FLightModel` extends `CDbCommand` class and adds active record style methods. Those methods are highly inspired by Yii2's active record. Note that `FLightModel` is mainly intended for data retrieving, it does not have `save()` method.
  *
- * FLightModel provides the following methods to retrieve the query results:
+ * `FLightModel` provides the following methods to retrieve the query results:
  *
- * - [[one($condition)]]: returns a single record populated with the first row of data.
- * - [[all($condition)]]: returns all records based on the query results.
- * - [[count($condition)]]: returns the number of records.
- * - [[exists($condition)]]: returns a value indicating whether the query result has data or not.
- * - [[with($methods)]]: list of relations that this query should be performed with.
- * - [[indexBy($column)]]: the name of the column by which the query result should be indexed.
- * - [[asArray()]]: whether to return each record as an array.
+ * - `one($condition)`: returns a single record populated with the first row of data.
+ * - `all($condition)`: returns all records based on the query results.
+ * - `count($condition)`: returns the number of records.
+ * - `exists($condition)`: returns a value indicating whether the query result has data or not.
+ * - `with($methods)`: list of relations that this query should be performed with.
+ * - `indexBy($column)`: the name of the column by which the query result should be indexed.
+ * - `asArray()`: whether to return each record as an array.
  * 
  * Usage: Let's say we have table `posts`
  * 
@@ -40,7 +40,7 @@
  *      }
  * }
  * ```
- * FLightModel instances are usually created by [[FLightModel::find()]] or [[FLightModel::findAll()]] or [[FLightModel::findOne()]].
+ * `FLightModel` instances are usually created by `FLightModel::find()` or `FLightModel::findAll()` or `FLightModel::findOne()`.
  * 
  * ```php
  * Post::findAll();     // fetch all rows as array of stdClass objects
@@ -63,7 +63,7 @@
  * Post::find()->with(['comments' => [$a, $b], 'users'])->all('active' => 1);   // also loads users
  * Post::find()->with('comments')->asArray()->all('active' => 1);   // fetch result as array
  * ```
- * By default, light model returns results as stdClass object or array of stdClass objects. Calling [[asArray()]] makes the result an array, but this does not apply to result of relation methods. In order to correct this, one must:
+ * By default, light model returns results as stdClass object or array of stdClass objects. Calling `asArray()` makes the result an array, but this does not apply to result of relation methods. In order to correct this, one must:
  * ```php
  * public function comments()
  * {
@@ -72,7 +72,7 @@
  *          all(['post_id' => $this->pk]);
  * }
  * ```
- * There is [[afterFind()]] method which enables us to call custom methods after finding the result. Its calling syntax is same as [[with()]]. Let's say our post table is multilingual and has `name_en`, `name_uz` fields. We want to have virtual field `name` indicating current language version of `name`.
+ * There is `afterFind()` method which enables us to call custom methods after finding the result. Its calling syntax is same as `with()`. Let's say our post table is multilingual and has `name_en`, `name_uz` fields. We want to have virtual field `name` indicating current language version of `name`.
  * ```php
  * Post::find()->with('comments')->with('user')->afterFind('langs')->all();
  * ...
